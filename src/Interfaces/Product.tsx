@@ -6,7 +6,6 @@ import Type from "./Type";
 export default interface Product {
     upc: string,
     name: string,
-    quantity: number,
     gender: Gender,
     price: number,
     cost: number,

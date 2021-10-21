@@ -3,6 +3,7 @@ import './NavigationBar.css'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Gender from '../../Interfaces/Gender'
+import { Link } from 'react-router-dom'
 
 
 export default function NavigationBar() {
@@ -13,20 +14,20 @@ export default function NavigationBar() {
          .then((res: any) => {
             let genderList: any[] = [];
             res.data.forEach((gender: Gender) => {
-               genderList = [...genderList, <a className="menu" href="#">{ gender.name }</a>]
+               genderList = [...genderList, <Link className="menu" to="#">{gender.name}</Link>]
             });
             setListMenu(genderList);
          })
    }, []);
 
    return (
-         <nav className="container">
-            <div className="logo-container">
-            <a href="#"><img className="logo" src='/assets/img_nike_logo.png' alt="logo"></img></a>
-            </div>
-            <div className="menu-container">
-               {listMenu}
-            </div>
-         </nav>
+      <nav className="container">
+         <div className="logo-container">
+            <Link to="/"><img alt="logo" className="logo" src='/assets/img_nike_logo.png'></img></Link>
+         </div>
+         <div className="menu-container">
+            {listMenu}
+         </div>
+      </nav>
    );
 }
