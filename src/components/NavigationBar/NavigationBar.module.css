@@ -26,19 +26,25 @@
 
 .menu-container {
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     top: 50%;
     left: 50%;
+    height: 75px;
     transform: translate(-50%, -50%);
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
 }
 
 .menu {
-    padding: 75px 25px 75px 25px;
-    transition: background-color 0.3s;
+    /* box-sizing: border-box; */
+    height: 100%;
+    padding: 0 25px;
     text-decoration: none;
     color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 7px solid transparent;
 }
 
 .menu a {
@@ -51,6 +57,5 @@ a:hover {
 }
 
 .menu:hover {
-    background-color: lightgrey;
-    transition: background-color 0.3s;
+    border-bottom: 7px solid black;
 }

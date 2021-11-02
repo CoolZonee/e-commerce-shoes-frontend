@@ -1,10 +1,9 @@
 import React from 'react'
-import './NavigationBar.css'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Gender from '../../Interfaces/Gender'
 import { Link } from 'react-router-dom'
-
+import styles from './NavigationBar.module.css'
 
 export default function NavigationBar() {
    const [listMenu, setListMenu] = useState<any[]>([]);
@@ -14,18 +13,18 @@ export default function NavigationBar() {
          .then((res: any) => {
             let genderList: any[] = [];
             res.data.forEach((gender: Gender) => {
-               genderList = [...genderList, <Link className="menu" to="#">{gender.name}</Link>]
+               genderList = [...genderList, <Link key={gender.id} className={styles.menu} to="#">{gender.name}</Link>]
             });
             setListMenu(genderList);
          })
    }, []);
 
    return (
-      <nav className="container">
-         <div className="logo-container">
-            <Link to="/"><img alt="logo" className="logo" src='/assets/img_nike_logo.png'></img></Link>
+      <nav className={styles.container}>
+         <div className={styles["logo-container"]}>
+            <Link to="/"><img alt="logo" className={styles.logo} src='/assets/img_nike_logo.png'></img></Link>
          </div>
-         <div className="menu-container">
+         <div className={styles["menu-container"]}>
             {listMenu}
          </div>
       </nav>

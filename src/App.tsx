@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Home from './components/Home/Home';
 import GenericNotFound from './components/GenericNotFound';
-import Product from './components/Product/Product';
+import ProductPage from './components/Product/ProductPage';
 import NavigationBar from './components/NavigationBar/NavigationBar';
+import './App.css'
 
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
       <NavigationBar />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/product/:upc" component={Product} />
+        <Route exact path="/product/:upc" component={ProductPage} />
         <Route exact path="/404" component={GenericNotFound} />
         <Redirect from="*" to="/404" />
       </Switch>
