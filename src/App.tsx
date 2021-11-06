@@ -5,6 +5,7 @@ import GenericNotFound from './components/GenericNotFound';
 import ProductPage from './components/Product/ProductPage';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import './App.css'
+import Login from './components/Login/Login';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/product/:upc" component={ProductPage} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/404" component={GenericNotFound} />
         <Redirect from="*" to="/404" />
       </Switch>
