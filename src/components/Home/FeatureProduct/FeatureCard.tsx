@@ -13,7 +13,7 @@ export default function FeatureCard() {
                 let productList: any[] = [];
                 res.data.forEach((product: Product) => {
                     productList = [...productList,
-                    <Link to={{ pathname: `/product/${product.upc}` }}>
+                    <Link key={product.upc} to={{ pathname: `/product/${product.upc}` }}>
                         <div className={styles["product-card"]}>
                             <img alt={product.name} className={styles["product-img"]} src={"/assets/" + product.image_path}></img>
                             <div className={styles["product-details"]}>

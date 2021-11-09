@@ -4,7 +4,7 @@ import { useParams } from 'react-router'
 import Product from '../../Interfaces/Product';
 import styles from './ProductPage.module.css';
 
-export default function ProductPage(props: any) {
+export default function ProductPage() {
     let { upc } = useParams<{ upc: string }>()
     const [product, setProduct] = useState<Product>();
 
@@ -20,7 +20,7 @@ export default function ProductPage(props: any) {
             );
         };
         fetchData();
-    }, []);
+    });
     if (product != null) {
         return (
             <div className={styles.container}>
