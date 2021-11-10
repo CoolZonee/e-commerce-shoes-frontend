@@ -3,24 +3,40 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import Product from '../../Interfaces/Product';
 import styles from './ProductPage.module.css';
+import * as API from '../../api/api'
 
 export default function ProductPage() {
     let { upc } = useParams<{ upc: string }>()
     const [product, setProduct] = useState<Product>();
 
     useEffect(() => {
+        let unmounted: boolean = false;
+        const source = axios.CancelToken.source();
         const fetchData = async () => {
-            await axios.get(`http://127.0.0.1:8000/product/${upc}/`).then(
+            API.getProductByUPC(upc).then(
                 async (res: any) => {
-                    console.log(res.data);
-                    let details: Product;
-                    details = await res.data
-                    setProduct(details);
+                    if (!unmounted) {
+                        let details: Product;
+                        details = res
+                        setProduct(details);
+                    }
                 }
-            );
+            ).catch(error => {
+                if (axios.isCancel(error)) {
+                } else {
+                    console.log(error);
+                }
+            });
         };
+
         fetchData();
-    });
+
+        return () => {
+            unmounted = true;
+            source.cancel();
+        }
+    }, [upc]);
+
     if (product != null) {
         return (
             <div className={styles.container}>

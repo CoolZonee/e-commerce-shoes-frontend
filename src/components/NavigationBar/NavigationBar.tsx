@@ -1,18 +1,18 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Gender from '../../Interfaces/Gender'
 import { Link } from 'react-router-dom'
 import styles from './NavigationBar.module.css'
+import * as API from '../../api/api'
 
 export default function NavigationBar() {
    const [listMenu, setListMenu] = useState<any[]>([]);
 
    useEffect(() => {
-      axios.get("http://127.0.0.1:8000/gender/")
+      API.getGender()
          .then((res: any) => {
             let genderList: any[] = [];
-            res.data.forEach((gender: Gender) => {
+            res.forEach((gender: Gender) => {
                genderList = [...genderList, <Link key={gender.id} className={styles.menu} to="#">{gender.name}</Link>]
             });
             setListMenu(genderList);

@@ -1,31 +1,42 @@
-import axios from 'axios';
 import styles from './Login.module.css';
 import useToken from '../Global/useToken';
 import { Redirect } from 'react-router';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import * as API from '../../api/api';
 
 export default function Login({ setToken }: any) {
-    const [username, setUsername] = useState<String>();
-    const [password, setPassword] = useState<String>();
+    const [email, setEmail] = useState<string>();
+    const [password, setPassword] = useState<string>();
+    const [errMsg, setErrMsg] = useState<string>();
     const { token } = useToken();
 
     async function login(payload: any) {
-        await axios.post("http://127.0.0.1:8000/login", payload).then((response: any) => {
-            setToken(response.data.token);
-        }).catch(e => {
-            console.log("Login: " + e);
-        });
+        API.login(payload)
+            .then((resp: any) => {
+                setToken(resp.token);
+            })
+            .catch(e => {
+                if (e.response) {
+                    setErrMsg(e.response.data.detail);
+                    setPassword("");
+                }
+            });
     }
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const payload = {
-            email: username,
-            password: password,
-        };
-        await login(payload);
+        if (!email || !password) {
+            setErrMsg("Please fill in the form!");
+        } else {
+            const payload = {
+                email: email,
+                password: password,
+            };
+            await login(payload);
+        }
     }
+
 
     if (token) {
         return <Redirect push to="/" />;
@@ -37,14 +48,15 @@ export default function Login({ setToken }: any) {
                 <h1>Login</h1>
             </div>
             <div className={styles.form_container}>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className={styles.input_container}>
                         <div>
-                            <input type="text" placeholder="Username" onChange={e => setUsername(e.target.value)} />
+                            <input type="email" placeholder="Email" onChange={e => setEmail(e.target.value)} />
                         </div>
                         <div>
-                            <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                            <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password} />
                         </div>
+                        {errMsg && <p>{errMsg}</p>}
                     </div>
                     <button type="submit">Sign In</button>
                 </form>
@@ -56,3 +68,6 @@ export default function Login({ setToken }: any) {
 Login.propTypes = {
     setToken: PropTypes.func.isRequired
 }
+
+
+
