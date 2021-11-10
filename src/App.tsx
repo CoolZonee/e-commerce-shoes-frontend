@@ -1,12 +1,12 @@
+import { useEffect } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import './App.css'
 import Home from './components/Home/Home';
 import GenericNotFound from './components/GenericNotFound';
 import ProductPage from './components/Product/ProductPage';
 import NavigationBar from './components/NavigationBar/NavigationBar';
-import './App.css'
 import Login from './components/Login/Login';
 import useToken from './components/Global/useToken';
-import { useEffect } from 'react';
 
 function App() {
   const { token, setToken } = useToken();

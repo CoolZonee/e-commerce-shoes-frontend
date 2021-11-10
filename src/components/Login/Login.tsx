@@ -2,8 +2,11 @@ import styles from './Login.module.css';
 import useToken from '../Global/useToken';
 import { Redirect } from 'react-router';
 import { useState } from 'react';
+import { GoogleLogin } from 'react-google-login';
 import PropTypes from 'prop-types';
 import * as API from '../../api/api';
+
+const clientID = "625587685571-dfvugbak7tj20tb77kbt2gb3a3efptjv.apps.googleusercontent.com";
 
 export default function Login({ setToken }: any) {
     const [email, setEmail] = useState<string>();
@@ -37,6 +40,9 @@ export default function Login({ setToken }: any) {
         }
     }
 
+    const handleGoogleLogin = (res: any) => {
+        console.log(res.profileObj);
+    }
 
     if (token) {
         return <Redirect push to="/" />;
@@ -44,9 +50,10 @@ export default function Login({ setToken }: any) {
 
     return (
         <>
-            <div className={styles.title}>
+            <script src="https://apis.google.com/js/platform.js" async defer></script>
+            <header className={styles.title}>
                 <h1>Login</h1>
-            </div>
+            </header>
             <div className={styles.form_container}>
                 <form onSubmit={handleSubmit}>
                     <div className={styles.input_container}>
@@ -58,7 +65,16 @@ export default function Login({ setToken }: any) {
                         </div>
                         {errMsg && <p>{errMsg}</p>}
                     </div>
-                    <button type="submit">Sign In</button>
+                    <button type="submit" className={styles.signin_btn}>Sign In</button>
+                    <GoogleLogin clientId={clientID} buttonText="Sign In with Google"
+                        render={renderProps => (
+                            <div>
+                                <button onClick={renderProps.onClick} className={styles.google_btn}><img alt="" src="assets/Google__G__Logo.svg"></img>Sign in with Google</button>
+                            </div>
+                        )}
+                        onSuccess={handleGoogleLogin}
+                        onFailure={handleSubmit}
+                        cookiePolicy={'single_host_origin'} />
                 </form>
             </div>
         </>
