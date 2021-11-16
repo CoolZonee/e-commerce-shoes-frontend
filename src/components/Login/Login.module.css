@@ -51,13 +51,7 @@
     width: 95%;
     height: 45px;
     margin: 20px auto;
-    transition: all 0.3s ease-in;
     display: block;
-}
-
-.signin_btn:hover {
-    background-color: darkgray;
-    transition: all 0.3s ease-in;
 }
 
 .form_container p {
@@ -79,12 +73,12 @@
     height: 45px;
     margin: 20px auto;
     background-color: white;
-    transition: background-color 0.3s;
+    color: black;
 }
 
-.google_btn:hover {
-    background-color: lightgray;
-    transition: background-color 0.3s;
+.fb_logo {
+    height: 40px;
+    padding-right: 15px;
 }
 
 .google_btn img {

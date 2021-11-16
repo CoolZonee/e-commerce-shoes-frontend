@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import Product from '../../Interfaces/Product';
+import Product from '../../interfaces/Product';
 import styles from './ProductPage.module.css';
-import * as API from '../../api/api'
+import * as API from '../../services/api'
 
 export default function ProductPage() {
     let { upc } = useParams<{ upc: string }>()

@@ -3,10 +3,12 @@ import useToken from '../Global/useToken';
 import { Redirect } from 'react-router';
 import { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 import PropTypes from 'prop-types';
-import * as API from '../../api/api';
+import * as API from '../../services/api';
 
-const clientID = "625587685571-dfvugbak7tj20tb77kbt2gb3a3efptjv.apps.googleusercontent.com";
+const googleClientID: string = (process.env.REACT_APP_GOOGLE_CLIENT_ID as string);
+const fbAppID: string = (process.env.REACT_APP_FACEBOOK_APP_ID as string);
 
 export default function Login({ setToken }: any) {
     const [email, setEmail] = useState<string>();
@@ -28,6 +30,8 @@ export default function Login({ setToken }: any) {
     }
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
+        console.log("submitted");
+        console.log(googleClientID);
         e.preventDefault();
         if (!email || !password) {
             setErrMsg("Please fill in the form!");
@@ -40,13 +44,36 @@ export default function Login({ setToken }: any) {
         }
     }
 
+    const responseFacebook = (response: any) => {
+        console.log("fb launched");
+        console.log(response);
+
+    }
+
     const handleGoogleLogin = (res: any) => {
-        console.log(res.profileObj);
+        console.log("google launched");
+        console.log(res);
     }
 
     if (token) {
         return <Redirect push to="/" />;
     }
+
+    const fbBtnStyle = {
+        border: "none",
+        outline: "none",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        cursor: "pointer",
+        borderRadius: "50px",
+        fontSize: "medium",
+        width: "95%",
+        height: "45px",
+        margin: "20px auto",
+        backgroundColor: "#3B5998",
+        color: "white",
+    };
 
     return (
         <>
@@ -66,15 +93,26 @@ export default function Login({ setToken }: any) {
                         {errMsg && <p>{errMsg}</p>}
                     </div>
                     <button type="submit" className={styles.signin_btn}>Sign In</button>
-                    <GoogleLogin clientId={clientID} buttonText="Sign In with Google"
+                    <GoogleLogin
+                        clientId={googleClientID}
+                        buttonText="Sign In with Google"
                         render={renderProps => (
                             <div>
                                 <button onClick={renderProps.onClick} className={styles.google_btn}><img alt="" src="assets/Google__G__Logo.svg"></img>Sign in with Google</button>
                             </div>
                         )}
                         onSuccess={handleGoogleLogin}
-                        onFailure={handleSubmit}
+                        onFailure={handleGoogleLogin}
                         cookiePolicy={'single_host_origin'} />
+                    <FacebookLogin
+                        appId={fbAppID}
+                        fields="name,email,picture"
+                        scope="public_profile,user_friends"
+                        callback={responseFacebook}
+                        textButton="Sign in with Facebook"
+                        cssClass="fb_btn"
+                        buttonStyle={fbBtnStyle}
+                        icon={<img className={styles.fb_logo} alt="" src="assets/FB__Logo.svg"></img>} />
                 </form>
             </div>
         </>

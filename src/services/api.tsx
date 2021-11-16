@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const urlPrefix = process.env.REACT_APP_API_URL;
+
 export const login = async (payload: any) => {
-    return await axios.post("http://127.0.0.1:8000/login", payload)
+    return await axios.post(`${urlPrefix}/login/`, payload)
         .then(res => res.data)
         .catch(err => {
             throw err;
@@ -9,7 +11,7 @@ export const login = async (payload: any) => {
 }
 
 export const getGender = async () => {
-    return await axios.get("http://127.0.0.1:8000/gender/")
+    return await axios.get(`${urlPrefix}/gender/`)
         .then(res => res.data)
         .catch(err => {
             throw err;
@@ -17,7 +19,7 @@ export const getGender = async () => {
 }
 
 export const getProductByUPC = async (upc: string) => {
-    return await axios.get(`http://127.0.0.1:8000/product/${upc}/`)
+    return await axios.get(`${urlPrefix}/product/${upc}/`)
         .then(res => res.data)
         .catch(err => {
             throw err;
@@ -25,7 +27,7 @@ export const getProductByUPC = async (upc: string) => {
 }
 
 export const getProductList = async () => {
-    return await axios.get("http://127.0.0.1:8000/product/")
+    return await axios.get(`${urlPrefix}/product`)
         .then(res => res.data)
         .catch(err => {
             throw err;

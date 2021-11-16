@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import Gender from '../../Interfaces/Gender'
+import Gender from '../../interfaces/Gender'
 import { Link } from 'react-router-dom'
 import styles from './NavigationBar.module.css'
-import * as API from '../../api/api'
+import * as API from '../../services/api'
 
 export default function NavigationBar() {
    const [listMenu, setListMenu] = useState<any[]>([]);

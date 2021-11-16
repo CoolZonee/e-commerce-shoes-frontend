@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Product from '../../../Interfaces/Product'
+import Product from '../../../interfaces/Product'
 import styles from './FeatureCard.module.css'
 
 export default function FeatureCard() {
