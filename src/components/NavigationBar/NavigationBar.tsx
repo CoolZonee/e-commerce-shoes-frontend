@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom'
 import styles from './NavigationBar.module.css'
 import * as API from '../../services/api'
 
+
 export default function NavigationBar() {
    const [listMenu, setListMenu] = useState<any[]>([]);
 
    useEffect(() => {
+
       API.getGender()
          .then((res: any) => {
             let genderList: any[] = [];
@@ -16,7 +18,7 @@ export default function NavigationBar() {
                genderList = [...genderList, <Link key={gender.id} className={styles.menu} to="#">{gender.name}</Link>]
             });
             setListMenu(genderList);
-         })
+         });
    }, []);
 
    return (

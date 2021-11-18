@@ -7,6 +7,9 @@
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -17,6 +20,7 @@
     "axios": "^0.23.0",
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.1.1",
+    "font-awesome": "^4.7.0",
     "primeicons": "^4.1.0",
     "primereact": "^6.6.0",
     "react": "^17.0.2",
@@ -58,6 +62,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-facebook-login": "^4.1.4",
     "@types/react-router-dom": "^5.3.1",
     "css-loader": "^6.5.0",
     "style-loader": "^3.3.1"

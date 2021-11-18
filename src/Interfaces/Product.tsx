@@ -7,6 +7,7 @@ export default interface Product {
     upc: string,
     name: string,
     gender: Gender,
+    color: string,
     price: number,
     cost: number,
     desc: string,
