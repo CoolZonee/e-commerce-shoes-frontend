@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import useToken from '../Global/useToken'
-import FeatureCard from './FeatureProduct/FeatureCard'
+import FeatureCard from './FeatureProduct/FeatureProduct'
 import styles from './Home.module.css';
 
 export default function Home() {
@@ -16,11 +16,11 @@ export default function Home() {
     }, [token, history]);
 
     return (
-        <>
+        <div>
             <div >
                 <header className={styles.title}>Most Wanted Footwear</header>
             </div>
             <FeatureCard />
-        </>
+        </div>
     )
 }

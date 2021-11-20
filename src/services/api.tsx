@@ -34,8 +34,16 @@ export const getProductList = async () => {
         });;
 }
 
-export const getProductDetails = async (upc: string) => {
+export const getProductDetailsByUPC = async (upc: string) => {
     return await axios.get(`${urlPrefix}/product-details/${upc}`)
+        .then(res => res.data)
+        .catch(err => {
+            throw err;
+        });;
+}
+
+export const getProductByGender = async (param: string) => {
+    return await axios.get(`${urlPrefix}/product${param === '' ? '' : '?' + param}`)
         .then(res => res.data)
         .catch(err => {
             throw err;

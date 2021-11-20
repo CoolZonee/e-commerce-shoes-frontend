@@ -53,7 +53,7 @@ export default function ProductPage() {
                 }
             });
 
-            await API.getProductDetails(upc).then(
+            await API.getProductDetailsByUPC(upc).then(
                 async (res: any) => {
                     if (!unmounted) {
                         console.log(res);

@@ -3,13 +3,6 @@
     height: auto;
 }
 
-.product-container {
-    display: flex;
-    position: relative;
-    padding: 20px;
-    overflow-x: scroll;
-}
-
 .product-card {
     display: flex;
     flex-direction: column;
@@ -32,9 +25,4 @@
 
 .product-details div:nth-child(2) {
     margin-left: auto;
-}
-
-p {
-    padding: 0;
-    margin: 0;
 }

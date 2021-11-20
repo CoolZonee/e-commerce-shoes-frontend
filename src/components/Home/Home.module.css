@@ -1,5 +1,6 @@
-title {
-    margin-left: 50px !important;
-    margin-top: 50px !important;
-    font-size: 20rem;
+.title {
+    margin-left: 50px;
+    margin-top: 50px;
+    font-size: 30px;
+    font-weight: bold;
 }

@@ -7,6 +7,7 @@ import ProductPage from './components/Product/ProductPage';
 import Login from './components/Login/Login';
 import useToken from './components/Global/useToken';
 import NavigationBar from './components/NavigationBar/NavigationBar';
+import GenderProduct from './components/Gender/GenderProduct';
 
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
       <NavigationBar />
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/men" component={GenderProduct} />
+        <Route exact path="/women" component={GenderProduct} />
+        <Route exact path="/kid" component={GenderProduct} />
         <Route exact path="/product/:upc" component={ProductPage} />
         <Route exact path="/login" component={() => (<Login setToken={setToken} />)} />
         <Route exact path="/404" component={GenericNotFound} />

@@ -51,6 +51,10 @@
     color: black;
 }
 
+.menu_selected {
+    border-bottom: 7px solid black;
+}
+
 .menu a:active,
 a:hover {
     color: black;
