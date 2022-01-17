@@ -1,25 +1,35 @@
 import styles from './Login.module.css';
-import useToken from '../Global/useToken';
 import { Redirect } from 'react-router';
 import { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import PropTypes from 'prop-types';
 import * as API from '../../services/api';
+import { AuthProp } from '../../interfaces/AuthProp'
+import { useHistory } from "react-router-dom";
 
 const googleClientID: string = (process.env.REACT_APP_GOOGLE_CLIENT_ID as string);
 const fbAppID: string = (process.env.REACT_APP_FACEBOOK_APP_ID as string);
 
-export default function Login({ setToken }: any) {
+export default function Login({ setAuthenticated, authenticated }: AuthProp, props: any) {
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [errMsg, setErrMsg] = useState<string>();
-    const { token } = useToken();
+    let history = useHistory();
+
+    if (authenticated) {
+        history.goBack();
+    }
 
     async function login(payload: any) {
-        API.login(payload)
+        await API.login(payload)
             .then((resp: any) => {
-                setToken(resp.token);
+                setAuthenticated(true)
+                if (history.action !== 'POP') {
+                    history.goBack();
+                } else {
+                    history.push('/')
+                }
             })
             .catch(e => {
                 if (e.response) {
@@ -27,6 +37,7 @@ export default function Login({ setToken }: any) {
                     setPassword("");
                 }
             });
+
     }
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
@@ -41,6 +52,7 @@ export default function Login({ setToken }: any) {
                 password: password,
             };
             await login(payload);
+
         }
     }
 
@@ -53,10 +65,6 @@ export default function Login({ setToken }: any) {
     const handleGoogleLogin = (res: any) => {
         console.log("google launched");
         console.log(res);
-    }
-
-    if (token) {
-        return <Redirect push to="/" />;
     }
 
     const fbBtnStyle = {
@@ -77,7 +85,7 @@ export default function Login({ setToken }: any) {
 
     return (
         <>
-            <script src="https://apis.google.com/js/platform.js" async defer></script>
+            {/* <script src="https://apis.google.com/js/platform.js" async defer></script> */}
             <header className={styles.title}>
                 <h1>Login</h1>
             </header>
@@ -93,7 +101,7 @@ export default function Login({ setToken }: any) {
                         {errMsg && <p>{errMsg}</p>}
                     </div>
                     <button type="submit" className={styles.signin_btn}>Sign In</button>
-                    <GoogleLogin
+                    {/* <GoogleLogin
                         clientId={googleClientID}
                         buttonText="Sign In with Google"
                         render={renderProps => (
@@ -112,16 +120,11 @@ export default function Login({ setToken }: any) {
                         textButton="Sign in with Facebook"
                         cssClass="fb_btn"
                         buttonStyle={fbBtnStyle}
-                        icon={<img className={styles.fb_logo} alt="" src="assets/FB__Logo.svg"></img>} />
+                        icon={<img className={styles.fb_logo} alt="" src="assets/FB__Logo.svg"></img>} /> */}
                 </form>
             </div>
         </>
     )
 }
-
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
-}
-
 
 

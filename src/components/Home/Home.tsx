@@ -1,19 +1,11 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
-import useToken from '../Global/useToken'
 import FeatureCard from './FeatureProduct/FeatureProduct'
 import styles from './Home.module.css';
+import { AuthProp } from '../../interfaces/AuthProp'
 
-export default function Home() {
-    // check if token is valid
-    const { token } = useToken();
-    let history = useHistory();
 
-    useEffect(() => {
-        if (!token) {
-            history.push('/login');
-        }
-    }, [token, history]);
+export default function Home({ authenticated }: AuthProp) {
 
     return (
         <div>

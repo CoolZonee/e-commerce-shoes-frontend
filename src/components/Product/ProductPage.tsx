@@ -5,6 +5,7 @@ import Product from '../../interfaces/Product';
 import ProductDetails from '../../interfaces/ProductDetails';
 import styles from './ProductPage.module.css';
 import * as API from '../../services/api'
+import { useHistory } from 'react-router-dom';
 
 export default function ProductPage() {
     let { upc } = useParams<{ upc: string }>()
@@ -56,7 +57,6 @@ export default function ProductPage() {
             await API.getProductDetailsByUPC(upc).then(
                 async (res: any) => {
                     if (!unmounted) {
-                        console.log(res);
                         setSize(res);
                     }
                 }

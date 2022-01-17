@@ -1,13 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router';
 import Product from '../../interfaces/Product';
 import * as API from '../../services/api'
 import ProductCard from '../Home/ProductCard';
 
 export default function GenderProduct() {
     const [products, setProducts] = useState<any>([]);
-    let gender: string = window.location.pathname.replace(/^\/([^\/]*).*$/, '$1');
+    let gender: string = window.location.pathname.replace(/^\/([^]*).*$/, '$1');
     gender = gender[0].toUpperCase() + gender.substring(1);
+
 
     useEffect(() => {
         let unmounted: boolean = false;
